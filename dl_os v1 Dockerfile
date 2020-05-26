@@ -1,0 +1,19 @@
+FROM centos:latest
+
+RUN yum install python3 -y
+RUN yum install vim -y
+RUN yum groupinstall 'development tools' -y
+RUN pip3 install --upgrade pip
+RUN python3 -m venv tensor_env
+RUN source /tensor_env/bin/activate
+RUN echo "source /tensor_env/bin/activate" >> /root/.bashrc
+RUN source /root/.bashrc
+RUN pip install tensorflow
+RUN pip install numpy
+RUN pip install pandas
+RUN pip install keras
+RUN pip install wheel
+
+RUN mkdir /mlops
+ENTRYPOINT [ "python3" ]
+CMD [ "/mlops/cnn.py" ]
