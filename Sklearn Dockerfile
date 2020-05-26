@@ -1,0 +1,17 @@
+FROM centos:latest
+
+RUN yum install python3 -y
+RUN yum install vim -y
+RUN yum groupinstall 'development tools' -y
+RUN pip3 install --upgrade pip
+RUN python3 -m venv ml_env
+RUN source /ml_env/bin/activate
+RUN echo "source /ml_env/bin/activate" >> /root/.bashrc
+RUN source /root/.bashrc
+RUN pip install sklearn
+RUN pip install numpy
+RUN pip install pandas
+
+RUN mkdir /mlops
+ENTRYPOINT [ "python3" ]
+CMD [ "/mlops/sklearn.py" ]
